@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1094787549100-j42h3hqde44qs45pmr45llv75s9ol1tf.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1094787549100-j42h3hqde44qs45pmr45llv75s9ol1tf</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD5u-gad_jiqu2iI2kZLlRKFQJLOQQ_HLg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1094787549100</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.toneup</string>
+	<key>PROJECT_ID</key>
+	<string>toneup-bc0eb</string>
+	<key>STORAGE_BUCKET</key>
+	<string>toneup-bc0eb.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1094787549100:ios:e0a78e3b26d361d7a01c09</string>
+</dict>
+</plist>

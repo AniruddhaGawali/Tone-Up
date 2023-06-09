@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1094787549100",
+    "project_id": "toneup-bc0eb",
+    "storage_bucket": "toneup-bc0eb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1094787549100:android:604f2f8099e548a5a01c09",
+        "android_client_info": {
+          "package_name": "com.example.toneup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1094787549100-jjki9iltgucudluhhnm1l07vqmfla09l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAx-cl6IWPSHP_sMFOOsjJ8E74EuUt0kAs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1094787549100-jjki9iltgucudluhhnm1l07vqmfla09l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
