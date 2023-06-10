@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:toneup/screen/set_workout_screen.dart';
 import 'package:toneup/widgits/stats_box.dart';
-import 'package:toneup/widgits/workout_card.dart';
+import 'package:toneup/widgits/categories_card.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -99,11 +100,11 @@ class HomeScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: const [
-                          WorkoutCard(
+                          CategoriesCard(
                             title: "Warm Up",
                             image: "assets/images/warmup.jpg",
                           ),
-                          WorkoutCard(
+                          CategoriesCard(
                             title: "Workout",
                             image: "assets/images/workout.jpg",
                           ),
@@ -132,7 +133,10 @@ class OwnWorkoutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (_) => const SetWorkoutScreen()));
+      },
       child: Stack(
         children: [
           Container(

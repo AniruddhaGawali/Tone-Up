@@ -7,7 +7,7 @@ Future<List> getWorkouts() async {
   List<dynamic> workoutsList = []; // Declare the variable outside
 
   Stream<QuerySnapshot> snapshot =
-      FirebaseFirestore.instance.collection('workouts').snapshots();
+      FirebaseFirestore.instance.collection('exercise').snapshots();
 
   snapshot.listen((QuerySnapshot querySnapshot) {
     workoutsList = querySnapshot.docs

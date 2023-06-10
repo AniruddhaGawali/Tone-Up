@@ -24,6 +24,7 @@ class MyApp extends ConsumerWidget {
       seedColor: const Color(0xFF003742),
       background: Colors.black,
       onBackground: Colors.white,
+      primary: const Color(0xFF003742),
     ),
   );
 

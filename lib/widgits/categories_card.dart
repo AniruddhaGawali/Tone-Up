@@ -1,34 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:toneup/screen/workout_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toneup/model/workouts.dart';
+import 'package:toneup/provider/workout_provider.dart';
+import 'package:toneup/screen/workout_list_screen.dart';
 
-class WorkoutCard extends StatelessWidget {
+class CategoriesCard extends ConsumerWidget {
   final String title;
   final String image;
 
-  const WorkoutCard({
+  const CategoriesCard({
     Key? key,
     required this.title,
     required this.image,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (_) => const WorkoutScreen()));
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (_) => ExerciseListScreen(
+                  title: title,
+                  image: image,
+                  exerciseList: title == 'Warm Up'
+                      ? ref.watch(workoutProvider.notifier).getWarmUp()
+                      : ref.watch(workoutProvider.notifier).getWorkouts(),
+                )));
       },
       child: Stack(
         children: [
-          Container(
-            width: 155,
-            height: 155,
-            decoration: BoxDecoration(
-              color: Colors.black,
-              borderRadius: BorderRadius.circular(15),
-              image: DecorationImage(
-                image: AssetImage(image),
-                fit: BoxFit.cover,
+          Hero(
+            tag: title + image,
+            child: Container(
+              width: 155,
+              height: 155,
+              decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(15),
+                image: DecorationImage(
+                  image: AssetImage(image),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
