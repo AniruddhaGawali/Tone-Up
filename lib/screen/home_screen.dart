@@ -177,12 +177,13 @@ class OwnWorkoutButton extends StatelessWidget {
             ),
           ),
           const Positioned(
-              top: 5,
-              right: 5,
-              child: Icon(
-                size: 35,
-                Icons.add_circle,
-              ))
+            top: 5,
+            right: 5,
+            child: Icon(
+              size: 35,
+              Icons.add_circle,
+            ),
+          ),
         ],
       ),
     );

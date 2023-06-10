@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:toneup/screen/home.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toneup/database/get_all_workouts.dart';
+import 'package:toneup/screen/home_screen.dart';
 
-void main() {
-  runApp(MyApp());
+import 'package:firebase_core/firebase_core.dart';
+
+import 'package:toneup/provider/workout_provider.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   MyApp({Key? key}) : super(key: key);
 
   final _theme = ThemeData(
@@ -19,9 +27,15 @@ class MyApp extends StatelessWidget {
     ),
   );
 
+  void setWorkouts(WidgetRef ref) async {
+    final workouts = await getWorkouts();
+    ref.read(workoutProvider.notifier).addAllWorkouts(workouts);
+  }
+
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    setWorkouts(ref);
     return MaterialApp(
       theme: _theme,
       home: const HomeScreen(),

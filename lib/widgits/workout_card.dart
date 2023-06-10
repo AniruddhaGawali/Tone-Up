@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toneup/screen/workout_screen.dart';
 
 class WorkoutCard extends StatelessWidget {
   final String title;
@@ -13,7 +14,10 @@ class WorkoutCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (_) => const WorkoutScreen()));
+      },
       child: Stack(
         children: [
           Container(
