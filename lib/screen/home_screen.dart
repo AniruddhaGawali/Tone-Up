@@ -139,15 +139,18 @@ class OwnWorkoutButton extends StatelessWidget {
       },
       child: Stack(
         children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 160,
-            decoration: BoxDecoration(
-              color: Colors.black,
-              borderRadius: BorderRadius.circular(15),
-              image: const DecorationImage(
-                image: AssetImage("assets/images/own_workout.jpg"),
-                fit: BoxFit.cover,
+          Hero(
+            tag: "own_workout",
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: 160,
+              decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(15),
+                image: const DecorationImage(
+                  image: AssetImage("assets/images/own_workout.jpg"),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
@@ -171,7 +174,7 @@ class OwnWorkoutButton extends StatelessWidget {
             left: 15,
             width: MediaQuery.of(context).size.width / 1.5,
             child: Text(
-              "Desige Your Own Workout",
+              "Design Your Own Workout",
               style: TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
