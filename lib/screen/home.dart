@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toneup/widgits/stats_box.dart';
+import 'package:toneup/widgits/workout_card.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -10,17 +11,17 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.background,
       body: CustomScrollView(slivers: [
         SliverAppBar.medium(
-          leading: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-            child: Text(
-              "ToneUp 💪",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.onBackground,
-              ),
-            ),
-          ),
+          // leading: Padding(
+          //   padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+          //   child: Text(
+          //     "ToneUp 💪",
+          //     style: TextStyle(
+          //       fontSize: 20,
+          //       fontWeight: FontWeight.bold,
+          //       color: Theme.of(context).colorScheme.onBackground,
+          //     ),
+          //   ),
+          // ),
           leadingWidth: double.infinity,
           backgroundColor: Theme.of(context).colorScheme.background,
           expandedHeight: 300,
@@ -68,19 +69,122 @@ class HomeScreen extends StatelessWidget {
             delegate: SliverChildBuilderDelegate(
           (context, index) {
             return Container(
-              height: 1000,
+              height: MediaQuery.of(context).size.height -
+                  (300 + MediaQuery.of(context).padding.top),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.onBackground,
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: const Center(
-                child: Text('Fill'),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Let's Start!",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            color: Theme.of(context).colorScheme.background,
+                          )),
+                      Text("Select Your Workout",
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.background,
+                          )),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: const [
+                          WorkoutCard(
+                            title: "Warm Up",
+                            image: "assets/images/warmup.jpg",
+                          ),
+                          WorkoutCard(
+                            title: "Workout",
+                            image: "assets/images/workout.jpg",
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      const OwnWorkoutButton()
+                    ]),
               ),
             );
           },
           childCount: 1,
         ))
       ]),
+    );
+  }
+}
+
+class OwnWorkoutButton extends StatelessWidget {
+  const OwnWorkoutButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {},
+      child: Stack(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: 160,
+            decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(15),
+              image: const DecorationImage(
+                image: AssetImage("assets/images/own_workout.jpg"),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: 160,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  const Color(0xFF003742).withOpacity(.9),
+                  const Color(0xFF003742).withOpacity(0),
+                ],
+                begin: Alignment.bottomLeft,
+                end: Alignment.topRight,
+              ),
+              borderRadius: BorderRadius.circular(15),
+            ),
+          ),
+          Positioned(
+            bottom: 10,
+            left: 15,
+            width: MediaQuery.of(context).size.width / 1.5,
+            child: Text(
+              "Desige Your Own Workout",
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.onBackground,
+                letterSpacing: 1,
+              ),
+            ),
+          ),
+          const Positioned(
+              top: 5,
+              right: 5,
+              child: Icon(
+                size: 35,
+                Icons.add_circle,
+              ))
+        ],
+      ),
     );
   }
 }
