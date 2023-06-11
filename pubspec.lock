@@ -33,6 +33,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.10.0"
+  awesome_number_picker:
+    dependency: "direct main"
+    description:
+      name: awesome_number_picker
+      sha256: e9d289499b04dd566a1a9a1eb68003c07cca5728d06edcd57961cbc4f06614ca
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.4"
   boolean_selector:
     dependency: transitive
     description:
@@ -381,6 +389,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
+  vertical_scroll_picker:
+    dependency: "direct main"
+    description:
+      name: vertical_scroll_picker
+      sha256: a854c1c36be1d08c51b0df3c801590e75a77c6aed0707067f8b8a81aeb15008b
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   xml:
     dependency: transitive
     description:

@@ -33,35 +33,46 @@ class _ExercsieScreeenState extends State<ExercsieScreeen> {
       _totalSet = widget.totalSet;
       _totalTime = _oneSetTime * _totalSet;
     });
+    _timerController();
   }
 
   void _timerController() {
-    if (!_isTimerStart) {
-      _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+    setState(() {
+      _isTimerStart = true;
+    });
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_totalTime == 0) {
+        _timer.cancel();
         setState(() {
-          _isTimerStart = true;
+          _isTimerStart = false;
+          _totalTime = 0;
         });
-        if (_totalTime == 0) {
-          setState(() {
-            _isTimerStart = false;
-            _totalTime = 0;
-          });
-          _timer.cancel();
-          return;
-        }
-        setState(() {
-          _totalTime--;
-        });
-        if (_totalTime == 0) {
-          _timer.cancel();
-        }
+        return;
+      }
+      setState(() {
+        _totalTime--;
       });
-    } else {
+    });
+  }
+
+  void playPause() {
+    if (_isTimerStart) {
       _timer.cancel();
       setState(() {
         _isTimerStart = false;
       });
+    } else {
+      _timerController();
+      setState(() {
+        _isTimerStart = true;
+      });
     }
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 
   @override
@@ -115,7 +126,7 @@ class _ExercsieScreeenState extends State<ExercsieScreeen> {
               SizedBox(
                 child: InkWell(
                   onTap: () {
-                    _timerController();
+                    playPause();
                   },
                   child: CircularPercentIndicator(
                     radius: 120,
@@ -154,28 +165,50 @@ class _ExercsieScreeenState extends State<ExercsieScreeen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  IconButton(
-                      onPressed: () {
-                        setState(() {
-                          _totalTime = 0;
-                        });
-                      },
-                      icon: Icon(
-                        Icons.skip_next_rounded,
-                        color: Theme.of(context).colorScheme.background,
-                        size: 53,
-                      )),
+                  _totalTime != 0
+                      ? IconButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          icon: Icon(
+                            Icons.arrow_back_rounded,
+                            color: Theme.of(context).colorScheme.background,
+                            size: 43,
+                          ))
+                      : const SizedBox(),
                   IconButton(
                       onPressed: () {
                         setState(() {
                           _totalTime = _oneSetTime * _totalSet;
                         });
+                        _timerController();
                       },
                       icon: Icon(
                         Icons.replay_rounded,
                         color: Theme.of(context).colorScheme.background,
                         size: 43,
                       )),
+                  _totalTime != 0
+                      ? IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _totalTime = 0;
+                            });
+                          },
+                          icon: Icon(
+                            Icons.skip_next_rounded,
+                            color: Theme.of(context).colorScheme.background,
+                            size: 53,
+                          ))
+                      : IconButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          icon: Icon(
+                            Icons.done_all_rounded,
+                            color: Theme.of(context).colorScheme.background,
+                            size: 53,
+                          )),
                 ],
               )
             ],

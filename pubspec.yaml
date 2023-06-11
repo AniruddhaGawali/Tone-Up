@@ -39,6 +39,8 @@ dependencies:
   flutter_riverpod: ^2.3.6
   flutter_launcher_icons: ^0.13.1
   percent_indicator: ^4.2.3
+  vertical_scroll_picker: ^1.0.2
+  awesome_number_picker: ^0.0.4
 
 dev_dependencies:
   flutter_test:
