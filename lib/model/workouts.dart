@@ -11,6 +11,14 @@ class Exercise {
     required this.isWarmUp,
   });
 
+  Exercise.clone(Exercise exercise)
+      : this(
+          name: exercise.name,
+          calBurn: exercise.calBurn,
+          time: exercise.time,
+          isWarmUp: exercise.isWarmUp,
+        );
+
   String get getName {
     return name
         .split(' ')

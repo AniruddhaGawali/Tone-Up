@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:toneup/model/workouts.dart';
 import 'package:toneup/widgits/exercise_card.dart';
 
 class ExerciseListScreen extends StatelessWidget {
   final String title;
   final String image;
-  final List<dynamic> exerciseList;
+  final List<Exercise> exerciseList;
+  final List<int>? sets;
+  final Widget? floatingActionButton;
   const ExerciseListScreen({
     Key? key,
     required this.title,
     required this.image,
     required this.exerciseList,
+    this.floatingActionButton,
+    this.sets,
   }) : super(key: key);
 
   @override
@@ -60,28 +65,28 @@ class ExerciseListScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) => ExerciseCard(
-                  exercise: exerciseList[index],
-                  isWarmUp: title == "Workout" ? false : true,
-                ),
-                childCount: exerciseList.length,
-              ),
-            )
+            sets != null
+                ? SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) => ExerciseCard(
+                        exercise: exerciseList[index],
+                        sets: sets![index],
+                      ),
+                      childCount: exerciseList.length,
+                    ),
+                  )
+                : SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) => ExerciseCard(
+                        exercise: exerciseList[index],
+                      ),
+                      childCount: exerciseList.length,
+                    ),
+                  ),
           ],
         ),
       ),
+      floatingActionButton: floatingActionButton,
     );
   }
 }
-
-
-
-                        //  ListView.builder(
-                        //   itemCount: exerciseList.length,
-                        //   itemBuilder: (bctx, index) => ExerciseCard(
-                        //     exercise: exerciseList[index],
-                        //     isWarmUp: title == "Workout" ? false : true,
-                        //   ),
-                        // ),

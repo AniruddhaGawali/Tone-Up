@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toneup/provider/workout_provider.dart';
-import 'package:toneup/screen/workout_list_screen.dart';
+import 'package:toneup/screen/exercise_list_screen.dart';
 
 class CategoriesCard extends ConsumerWidget {
   final String title;

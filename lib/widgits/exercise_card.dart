@@ -5,15 +5,27 @@ import 'package:toneup/screen/exercise_screen.dart';
 
 class ExerciseCard extends StatelessWidget {
   final Exercise exercise;
-  final bool isWarmUp;
+  final IconData? icon;
+  final Function? onSelect;
+  final bool? isSelected;
+  final int? sets;
+
   const ExerciseCard({
     super.key,
     required this.exercise,
-    required this.isWarmUp,
+    this.icon,
+    this.onSelect,
+    this.isSelected,
+    this.sets,
   });
 
   void selectExercise(BuildContext context) {
     int totalSet = 1;
+
+    if (isSelected != null && isSelected!) {
+      onSelect!(exercise, totalSet);
+      return;
+    }
 
     showModalBottomSheet<void>(
         context: context,
@@ -98,15 +110,14 @@ class ExerciseCard extends StatelessWidget {
                       );
                       Navigator.pop(context);
                       return;
+                    } else {
+                      if (onSelect != null) {
+                        Navigator.pop(context);
+                        onSelect!(exercise, totalSet);
+                      } else {
+                        _startExercise(context, totalSet);
+                      }
                     }
-                    Navigator.pop(context);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ExercsieScreeen(
-                                  exercise: exercise,
-                                  totalSet: totalSet,
-                                )));
                   },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
@@ -114,12 +125,12 @@ class ExerciseCard extends StatelessWidget {
                     ),
                   ),
                   icon: Icon(
-                    Icons.play_arrow,
+                    onSelect != null ? Icons.add : Icons.play_arrow,
                     color: Theme.of(context).colorScheme.onSurface,
                     size: 20,
                   ),
                   label: Text(
-                    "Start",
+                    onSelect != null ? "Add" : "Start",
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.onSurface,
                       fontSize: 20,
@@ -133,16 +144,31 @@ class ExerciseCard extends StatelessWidget {
         });
   }
 
+  void _startExercise(BuildContext context, int totalSet) {
+    Navigator.pop(context);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ExercsieScreeen(
+                  exercise: exercise,
+                  totalSet: totalSet,
+                )));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-      color: Theme.of(context).colorScheme.onSurface,
+      color: isSelected != null
+          ? isSelected!
+              ? Theme.of(context).colorScheme.secondary
+              : Theme.of(context).colorScheme.onSurface
+          : Theme.of(context).colorScheme.onSurface,
       child: ListTile(
         onTap: () => selectExercise(context),
         leading: CircleAvatar(
           child: Icon(
-            isWarmUp ? Icons.directions_run : Icons.fitness_center,
+            exercise.isWarmUp ? Icons.directions_run : Icons.fitness_center,
             color: Theme.of(context).colorScheme.onBackground,
             size: 30,
           ),
@@ -153,31 +179,56 @@ class ExerciseCard extends StatelessWidget {
               fontSize: 20,
               fontWeight: FontWeight.bold,
             )),
-        subtitle: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Icon(Icons.local_fire_department,
-              color: Theme.of(context).colorScheme.onPrimary, size: 15),
-          Text(
-            " : ${exercise.calBurn.toString()} cal",
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.background,
-              fontSize: 13,
-            ),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+              Icon(Icons.local_fire_department,
+                  color: Theme.of(context).colorScheme.onPrimary, size: 15),
+              Text(
+                " : ${exercise.calBurn.toString()} cal",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.background,
+                  fontSize: 13,
+                ),
+              ),
+              const VerticalDivider(),
+              Icon(Icons.timer,
+                  color: Theme.of(context).colorScheme.onPrimary, size: 15),
+              Text(
+                " : ${exercise.time.toString()} min",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.background,
+                  fontSize: 13,
+                ),
+              ),
+            ]),
+            sets != null
+                ? Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.stacked_bar_chart_rounded,
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          size: 15),
+                      Text(
+                        " Sets : $sets ",
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.background,
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  )
+                : const SizedBox()
+          ],
+        ),
+        trailing: SizedBox(
+          height: double.infinity,
+          child: Icon(
+            icon ?? Icons.play_arrow,
+            color: Theme.of(context).colorScheme.onPrimary,
+            size: 30,
           ),
-          const VerticalDivider(),
-          Icon(Icons.timer,
-              color: Theme.of(context).colorScheme.onPrimary, size: 15),
-          Text(
-            " : ${exercise.time.toString()} min",
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.background,
-              fontSize: 13,
-            ),
-          ),
-        ]),
-        trailing: Icon(
-          Icons.play_arrow,
-          color: Theme.of(context).colorScheme.onPrimary,
-          size: 30,
         ),
       ),
     );

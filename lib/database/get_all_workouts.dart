@@ -19,10 +19,5 @@ Future<List> getWorkouts() async {
 
   await completer.future;
 
-  // final container = ProviderContainer();
-  // container.read(workoutProvider.notifier).addAllWorkouts(workoutsList);
-
-  // print(container.read(workoutProvider.notifier).getWorkouts());
-
   return workoutsList;
 }

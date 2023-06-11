@@ -19,7 +19,7 @@ class _SetWorkoutScreenState extends ConsumerState<SetWorkoutScreen>
   late TabController tabBarContoller;
 
   int pageIndex = 0;
-  List<Exercise> selectedExercise = [];
+  List<Map<Exercise, int>> selectedExercise = [];
 
   @override
   void initState() {
@@ -39,7 +39,9 @@ class _SetWorkoutScreenState extends ConsumerState<SetWorkoutScreen>
     } else if (pageIndex == 1) {
       return ref.read(exerciseProvider.notifier).getWorkouts();
     } else {
-      return selectedExercise;
+      return selectedExercise.map<Exercise>((e) {
+        return e.keys.first;
+      }).toList();
     }
   }
 
@@ -53,20 +55,23 @@ class _SetWorkoutScreenState extends ConsumerState<SetWorkoutScreen>
     }
   }
 
-  void addToSelectedExercise(Exercise exercise) {
-    List<Exercise> temp = [...selectedExercise];
-    if (selectedExercise.contains(exercise)) {
-      temp = temp.where((element) => element != exercise).toList();
+  void addToSelectedExercise(Exercise exercise, int sets) {
+    print("add to selected exercise");
+    List<Map<Exercise, int>> temp = selectedExercise;
+    bool isExist = temp.any((element) => element.keys.first == exercise);
+    if (isExist) {
+      temp = temp.where((element) => element.keys.first != exercise).toList();
       setState(() {
         selectedExercise = temp;
       });
-      selectedExercise.remove(exercise);
     } else {
-      temp.add(exercise);
+      temp.add({exercise: sets});
       setState(() {
         selectedExercise = temp;
       });
     }
+
+    print(selectedExercise);
   }
 
   void saveExerciseInDatebase() async {
@@ -74,11 +79,12 @@ class _SetWorkoutScreenState extends ConsumerState<SetWorkoutScreen>
     await ref
         .read(userExerciseProvider.notifier)
         .saveExercises(selectedExercise);
+
+    print(ref.read(userExerciseProvider.notifier).getExercise());
   }
 
   @override
   Widget build(BuildContext context) {
-    print(ref.read(userExerciseProvider.notifier).getExercise());
     return Scaffold(
       body: Container(
         color: Theme.of(context).colorScheme.onBackground,
@@ -130,9 +136,16 @@ class _SetWorkoutScreenState extends ConsumerState<SetWorkoutScreen>
                 (context, index) => SelectExerciseCard(
                   key: Key(index.toString()),
                   exercise: exerciseList[index],
-                  isWarmUp: exerciseList[index].isWarmUp,
+                  sets: pageIndex == 2
+                      ? selectedExercise
+                          .firstWhere((element) =>
+                              element.keys.first == exerciseList[index])
+                          .values
+                          .first
+                      : null,
                   onSelect: addToSelectedExercise,
-                  isSelected: selectedExercise.contains(exerciseList[index]),
+                  isSelected: selectedExercise.any(
+                      (element) => element.keys.first == exerciseList[index]),
                   pageIndex: pageIndex,
                 ),
                 childCount: exerciseList.length,

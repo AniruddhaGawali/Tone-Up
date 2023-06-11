@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toneup/provider/user_workout_provider.dart';
 import 'package:toneup/screen/set_workout_screen.dart';
+import 'package:toneup/screen/user_workout_screen.dart';
 import 'package:toneup/widgits/stats_box.dart';
 import 'package:toneup/widgits/categories_card.dart';
 
@@ -14,17 +15,6 @@ class HomeScreen extends ConsumerWidget {
       backgroundColor: Theme.of(context).colorScheme.background,
       body: CustomScrollView(slivers: [
         SliverAppBar.medium(
-          // leading: Padding(
-          //   padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-          //   child: Text(
-          //     "ToneUp 💪",
-          //     style: TextStyle(
-          //       fontSize: 20,
-          //       fontWeight: FontWeight.bold,
-          //       color: Theme.of(context).colorScheme.onBackground,
-          //     ),
-          //   ),
-          // ),
           leadingWidth: double.infinity,
           backgroundColor: Theme.of(context).colorScheme.background,
           expandedHeight: 300,
@@ -115,9 +105,32 @@ class HomeScreen extends ConsumerWidget {
                       const SizedBox(
                         height: 30,
                       ),
-                      ref.read(userExerciseProvider.notifier).isExerciseExist()
-                          ? SizedBox()
-                          : const OwnWorkoutButton()
+                      FutureBuilder(
+                        future: ref
+                            .read(userExerciseProvider.notifier)
+                            .isExerciseExist(),
+                        builder: (BuildContext bctx, AsyncSnapshot snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          if (snapshot.hasError) {
+                            return const Center(
+                              child: Text("Something went wrong"),
+                            );
+                          }
+                          if (snapshot.data == false) {
+                            return const UserWorkoutButton(
+                                title: "Design Your Own Workout");
+                          }
+                          print(ref
+                              .read(userExerciseProvider.notifier)
+                              .getExercise());
+                          return const UserWorkoutButton(title: "Your Workout");
+                        },
+                      ),
                     ]),
               ),
             );
@@ -129,15 +142,25 @@ class HomeScreen extends ConsumerWidget {
   }
 }
 
-class OwnWorkoutButton extends StatelessWidget {
-  const OwnWorkoutButton({
+class UserWorkoutButton extends ConsumerWidget {
+  final String title;
+  const UserWorkoutButton({
     super.key,
+    required this.title,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
       onTap: () {
+        if (title == "Your Workout") {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (_) => UserWorkoutScreeen(
+                    context: _,
+                    ref: ref,
+                  )));
+          return;
+        }
         Navigator.of(context)
             .push(MaterialPageRoute(builder: (_) => const SetWorkoutScreen()));
       },
@@ -178,7 +201,7 @@ class OwnWorkoutButton extends StatelessWidget {
             left: 15,
             width: MediaQuery.of(context).size.width / 1.5,
             child: Text(
-              "Design Your Own Workout",
+              title,
               style: TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
