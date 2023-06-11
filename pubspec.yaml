@@ -41,6 +41,9 @@ dependencies:
   percent_indicator: ^4.2.3
   vertical_scroll_picker: ^1.0.2
   awesome_number_picker: ^0.0.4
+  sqflite: ^2.2.8+4
+  path: ^1.8.2
+  sqflite_common_ffi: ^2.2.5
 
 dev_dependencies:
   flutter_test:

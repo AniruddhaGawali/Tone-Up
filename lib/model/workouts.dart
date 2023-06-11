@@ -25,4 +25,12 @@ class Exercise {
         time: double.parse(json['time'].toString()),
         isWarmUp: json['is_warmup']);
   }
+
+  factory Exercise.fromMap(Map<String, dynamic> json) {
+    return Exercise(
+        name: json['name'].toString(),
+        calBurn: double.parse(json['cal_burn'].toString()),
+        time: double.parse(json['time'].toString()),
+        isWarmUp: json['is_warmup'] == 1);
+  }
 }

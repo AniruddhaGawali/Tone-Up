@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toneup/model/workouts.dart';
+import 'package:toneup/provider/user_workout_provider.dart';
 import 'package:toneup/provider/workout_provider.dart';
 import 'package:toneup/widgits/select_exercise_card.dart';
 
@@ -66,6 +67,14 @@ class _SetWorkoutScreenState extends ConsumerState<SetWorkoutScreen>
         selectedExercise = temp;
       });
     }
+  }
+
+  void saveExerciseInDatebase() async {
+    await ref
+        .read(userExerciseProvider.notifier)
+        .saveExercises(selectedExercise);
+
+    Navigator.of(context).pop();
   }
 
   @override
@@ -169,14 +178,10 @@ class _SetWorkoutScreenState extends ConsumerState<SetWorkoutScreen>
                   )
                 : FloatingActionButton.extended(
                     heroTag: "done",
-                    onPressed: pageIndex == 2
+                    onPressed: pageIndex != 2
                         ? null
                         : () {
-                            setState(() {
-                              if (pageIndex < 2) {
-                                pageIndex++;
-                              }
-                            });
+                            saveExerciseInDatebase();
                           },
                     icon: const Icon(Icons.done),
                     label: const Text("Final"),

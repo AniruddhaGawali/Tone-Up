@@ -175,19 +175,18 @@ class _ExercsieScreeenState extends State<ExercsieScreeen> {
                             color: Theme.of(context).colorScheme.background,
                             size: 43,
                           ))
-                      : const SizedBox(),
-                  IconButton(
-                      onPressed: () {
-                        setState(() {
-                          _totalTime = _oneSetTime * _totalSet;
-                        });
-                        _timerController();
-                      },
-                      icon: Icon(
-                        Icons.replay_rounded,
-                        color: Theme.of(context).colorScheme.background,
-                        size: 43,
-                      )),
+                      : IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _totalTime = _oneSetTime * _totalSet;
+                            });
+                            _timerController();
+                          },
+                          icon: Icon(
+                            Icons.replay_rounded,
+                            color: Theme.of(context).colorScheme.background,
+                            size: 43,
+                          )),
                   _totalTime != 0
                       ? IconButton(
                           onPressed: () {
