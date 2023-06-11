@@ -210,14 +210,23 @@ class UserWorkoutButton extends ConsumerWidget {
               ),
             ),
           ),
-          const Positioned(
-            top: 5,
-            right: 5,
-            child: Icon(
-              size: 35,
-              Icons.add_circle,
-            ),
-          ),
+          title != "Your Workout"
+              ? const Positioned(
+                  top: 5,
+                  right: 5,
+                  child: Icon(
+                    size: 35,
+                    Icons.add_circle,
+                  ),
+                )
+              : const Positioned(
+                  top: 5,
+                  right: 5,
+                  child: Icon(
+                    size: 35,
+                    Icons.play_arrow_rounded,
+                  ),
+                ),
         ],
       ),
     );
