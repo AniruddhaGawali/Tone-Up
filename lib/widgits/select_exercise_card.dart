@@ -1,18 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:toneup/model/workouts.dart';
 
-class ExerciseCard extends StatelessWidget {
+class SelectExerciseCard extends StatelessWidget {
   final Exercise exercise;
   final bool isWarmUp;
-  const ExerciseCard(
-      {super.key, required this.exercise, required this.isWarmUp});
+  final Function onSelect;
+  final bool isSelected;
+  final int pageIndex;
+
+  const SelectExerciseCard({
+    required super.key,
+    required this.exercise,
+    required this.isWarmUp,
+    required this.onSelect,
+    required this.isSelected,
+    required this.pageIndex,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-      color: Theme.of(context).colorScheme.secondary,
+      color: isSelected
+          ? Theme.of(context).colorScheme.secondary
+          : Theme.of(context).colorScheme.onSurface,
       child: ListTile(
+        onTap: () => onSelect(exercise),
         leading: CircleAvatar(
           child: Icon(
             isWarmUp ? Icons.directions_run : Icons.fitness_center,
@@ -48,7 +61,7 @@ class ExerciseCard extends StatelessWidget {
           ),
         ]),
         trailing: Icon(
-          Icons.play_arrow,
+          pageIndex == 2 ? Icons.remove : Icons.add,
           color: Theme.of(context).colorScheme.onPrimary,
           size: 30,
         ),

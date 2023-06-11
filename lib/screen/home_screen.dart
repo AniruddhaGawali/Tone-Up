@@ -135,7 +135,7 @@ class OwnWorkoutButton extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.of(context)
-            .push(MaterialPageRoute(builder: (_) => const SetWorkoutScreen()));
+            .push(MaterialPageRoute(builder: (_) => SetWorkoutScreen()));
       },
       child: Stack(
         children: [

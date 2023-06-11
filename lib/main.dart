@@ -30,7 +30,7 @@ class MyApp extends ConsumerWidget {
 
   void setWorkouts(WidgetRef ref) async {
     final workouts = await getWorkouts();
-    ref.read(workoutProvider.notifier).addAllWorkouts(workouts);
+    ref.read(exerciseProvider.notifier).addAllWorkouts(workouts);
   }
 
   // This widget is the root of your application.

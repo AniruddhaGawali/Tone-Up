@@ -23,8 +23,8 @@ class CategoriesCard extends ConsumerWidget {
                   title: title,
                   image: image,
                   exerciseList: title == 'Warm Up'
-                      ? ref.watch(workoutProvider.notifier).getWarmUp()
-                      : ref.watch(workoutProvider.notifier).getWorkouts(),
+                      ? ref.watch(exerciseProvider.notifier).getWarmUp()
+                      : ref.watch(exerciseProvider.notifier).getWorkouts(),
                 )));
       },
       child: Stack(

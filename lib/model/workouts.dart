@@ -12,14 +12,17 @@ class Exercise {
   });
 
   String get getName {
-    return name[0].toUpperCase() + name.substring(1).toLowerCase();
+    return name
+        .split(' ')
+        .map((e) => e[0].toUpperCase() + e.substring(1))
+        .join(' ');
   }
 
   factory Exercise.fromJson(Map<String, dynamic> json) {
     return Exercise(
-        name: json['name'],
-        calBurn: json['cal_burn'],
-        time: json['time'],
+        name: json['name'].toString(),
+        calBurn: double.parse(json['cal_burn'].toString()),
+        time: double.parse(json['time'].toString()),
         isWarmUp: json['is_warmup']);
   }
 }
