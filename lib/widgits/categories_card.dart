@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:toneup/model/workouts.dart';
 import 'package:toneup/provider/workout_provider.dart';
 import 'package:toneup/screen/workout_list_screen.dart';
 

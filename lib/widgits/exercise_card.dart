@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toneup/model/workouts.dart';
+import 'package:toneup/screen/exercise_screen.dart';
 
 class ExerciseCard extends StatelessWidget {
   final Exercise exercise;
@@ -11,8 +12,15 @@ class ExerciseCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-      color: Theme.of(context).colorScheme.secondary,
+      color: Theme.of(context).colorScheme.onSurface,
       child: ListTile(
+        onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ExercsieScreeen(
+                      exercise: exercise,
+                      totalSet: 1,
+                    ))),
         leading: CircleAvatar(
           child: Icon(
             isWarmUp ? Icons.directions_run : Icons.fitness_center,

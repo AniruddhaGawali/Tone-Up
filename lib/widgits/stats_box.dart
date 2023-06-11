@@ -33,7 +33,7 @@ class StatsBox extends StatelessWidget {
               height: 5,
             ),
             Text(
-              "1.000",
+              "0",
               style: TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
@@ -58,7 +58,7 @@ class StatsBox extends StatelessWidget {
               height: 8,
             ),
             Text(
-              "50%",
+              "0%",
               style: TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
@@ -86,7 +86,7 @@ class StatsBox extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  "85",
+                  "0",
                   style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
