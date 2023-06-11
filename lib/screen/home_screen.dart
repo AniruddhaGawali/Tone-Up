@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toneup/provider/user_workout_provider.dart';
 import 'package:toneup/screen/set_workout_screen.dart';
 import 'package:toneup/widgits/stats_box.dart';
 import 'package:toneup/widgits/categories_card.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: CustomScrollView(slivers: [
@@ -113,7 +115,9 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(
                         height: 30,
                       ),
-                      const OwnWorkoutButton()
+                      ref.read(userExerciseProvider.notifier).isExerciseExist()
+                          ? SizedBox()
+                          : const OwnWorkoutButton()
                     ]),
               ),
             );

@@ -70,15 +70,15 @@ class _SetWorkoutScreenState extends ConsumerState<SetWorkoutScreen>
   }
 
   void saveExerciseInDatebase() async {
+    Navigator.of(context).pop();
     await ref
         .read(userExerciseProvider.notifier)
         .saveExercises(selectedExercise);
-
-    Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
+    print(ref.read(userExerciseProvider.notifier).getExercise());
     return Scaffold(
       body: Container(
         color: Theme.of(context).colorScheme.onBackground,

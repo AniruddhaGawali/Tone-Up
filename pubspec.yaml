@@ -43,7 +43,6 @@ dependencies:
   awesome_number_picker: ^0.0.4
   sqflite: ^2.2.8+4
   path: ^1.8.2
-  sqflite_common_ffi: ^2.2.5
 
 dev_dependencies:
   flutter_test:

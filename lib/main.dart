@@ -7,13 +7,8 @@ import 'package:firebase_core/firebase_core.dart';
 
 import 'package:toneup/provider/workout_provider.dart';
 
-import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-import 'package:sqflite_common/sqlite_api.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  sqfliteFfiInit();
-
   await Firebase.initializeApp();
   runApp(ProviderScope(child: MyApp()));
 }
@@ -42,6 +37,7 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     setWorkouts(ref);
+
     return MaterialApp(
       theme: _theme,
       home: const HomeScreen(),

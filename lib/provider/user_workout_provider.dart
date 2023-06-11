@@ -4,7 +4,6 @@ import 'package:toneup/model/workouts.dart';
 
 import 'package:path/path.dart' as path;
 import 'package:sqflite/sqflite.dart' as sql;
-import 'package:sqflite_common_ffi/sqflite_ffi.dart' as ffi;
 
 class UserExerciseNotifier extends StateNotifier<List<Exercise>> {
   UserExerciseNotifier() : super([]);
@@ -72,9 +71,16 @@ class UserExerciseNotifier extends StateNotifier<List<Exercise>> {
     }
   }
 
-  Future<void> _deleteExercises() async {
+  Future<void> deleteExercises() async {
     final db = await _getDatabase();
     db.delete('exercises');
+  }
+
+  bool isExerciseExist() {
+    _loadExercises();
+    print(state);
+
+    return state.isNotEmpty;
   }
 }
 
